@@ -57,8 +57,20 @@ class HaltableClock extends React.Component {
       "Stop Clock",
     );
 
+    const restartButton = React.createElement(
+      "button",
+      { onClick: () => this.setState({ finished: false }) },
+      "Restart",
+    );
+
+    const clockStoppedMessage = React.createElement(
+      "p",
+      null,
+      "Clock stopped!",
+    );
+    
     return this.state.finished
-      ? React.createElement("p", null, "Clock stopped!")
+      ? React.createElement("div", null, clockStoppedMessage, restartButton)
       : React.createElement("div", null, clock, haltButton);
   }
 }
