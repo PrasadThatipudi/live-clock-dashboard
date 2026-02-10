@@ -5,9 +5,13 @@ class Clock extends React.Component {
   }
 
   componentDidMount() {
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.setState(({ timesElapsed }) => ({ timesElapsed: timesElapsed + 1 }));
     }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
   }
 
   timeInHMS(timestamp) {
