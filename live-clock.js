@@ -1,12 +1,12 @@
 class Clock extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { timesElapsed: 0, clockStartedAt: Date.now() };
+    this.state = { currentTime: Date.now() };
   }
 
   componentDidMount() {
     this.intervalId = setInterval(() => {
-      this.setState(({ timesElapsed }) => ({ timesElapsed: timesElapsed + 1 }));
+      this.setState({ currentTime: Date.now() });
     }, 1000);
   }
 
@@ -27,13 +27,10 @@ class Clock extends React.Component {
   }
 
   render() {
-    const timeInSeconds =
-      this.state.clockStartedAt + this.state.timesElapsed * 1000;
-
     const timer = React.createElement(
       "p",
       null,
-      `${this.timeInHMS(timeInSeconds)}`,
+      `${this.timeInHMS(this.state.currentTime)}`,
     );
 
     return timer;
@@ -68,7 +65,7 @@ class HaltableClock extends React.Component {
       null,
       "Clock stopped!",
     );
-    
+
     return this.state.finished
       ? React.createElement("div", null, clockStoppedMessage, restartButton)
       : React.createElement("div", null, clock, haltButton);
