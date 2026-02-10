@@ -36,7 +36,32 @@ class Clock extends React.Component {
   }
 }
 
+class HaltableClock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { finished: false };
+  }
+
+  render() {
+    const clock = React.createElement(Clock, null);
+
+    const haltButton = React.createElement(
+      "button",
+      {
+        onClick: () => this.setState({ finished: true }),
+      },
+      "Stop Clock",
+    );
+
+    return this.state.finished
+      ? React.createElement("p", null, "Clock stopped!")
+      : React.createElement("div", null, clock, haltButton);
+  }
+}
+
 const clock = React.createElement(Clock, null);
 
 const mainContainer = document.getElementById("main_container");
-ReactDOM.render(clock, mainContainer);
+const haltableClock = React.createElement(HaltableClock, null);
+
+ReactDOM.render(haltableClock, mainContainer);
